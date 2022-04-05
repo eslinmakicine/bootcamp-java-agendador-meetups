@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.LocalDate;
 
+//as anotações abaixo servem para não ser necessário criar get, set, construtores com a ajuda de lombok...
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

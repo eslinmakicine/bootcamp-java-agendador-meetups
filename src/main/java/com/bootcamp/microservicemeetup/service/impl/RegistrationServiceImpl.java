@@ -53,7 +53,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         return this.repository.save(registration);
     }
 
-    @Override
+    @Override //nao entendi esse metodo com paginação
     public Page<Registration> find(Registration filter, PageRequest pageRequest) {
         Example<Registration> example = Example.of(filter,
                 ExampleMatcher

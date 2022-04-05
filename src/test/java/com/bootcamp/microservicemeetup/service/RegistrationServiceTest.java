@@ -36,6 +36,7 @@ public class RegistrationServiceTest {
 
 
     @BeforeEach
+    //dependencia de service e new da mesma
     public void setUp() {
         this.registrationService = new RegistrationServiceImpl(repository);
     }
@@ -71,10 +72,10 @@ public class RegistrationServiceTest {
 
         Throwable exception = Assertions.catchThrowable( () -> registrationService.save(registration));
         assertThat(exception)
-                .isInstanceOf(BusinessException.class)
+                .isInstanceOf(BusinessException.class)//garantir que é uma exceção de uma instância denominada BusinessException
                 .hasMessage("Registration already created");
 
-        Mockito.verify(repository, Mockito.never()).save(registration);
+        Mockito.verify(repository, Mockito.never()).save(registration); //vai validar que dentro desse repository ele nunca vai salvar um registro que já esteja criado
     }
 
     @Test
@@ -118,7 +119,7 @@ public class RegistrationServiceTest {
         Registration registration = Registration.builder().id(11).build();
 
         assertDoesNotThrow(() -> registrationService.delete(registration));
-
+//Mockito.times diz quantas vezes deseja invocar esse metodo
         Mockito.verify(repository, Mockito.times(1)).delete(registration);
     }
 
@@ -146,13 +147,13 @@ public class RegistrationServiceTest {
 
     }
 
-    @Test
+    @Test //NAO ENTENDI
     @DisplayName("Should filter registrations must by properties")
     public void findRegistrationTest() {
 
         // cenario
         Registration registration = createValidRegistration();
-        PageRequest pageRequest = PageRequest.of(0,10);
+        PageRequest pageRequest = PageRequest.of(0,10); //minimo e maximo de paginas que quero trazer
 
         List<Registration> listRegistrations = Arrays.asList(registration);
         Page<Registration> page = new PageImpl<Registration>(Arrays.asList(registration),
@@ -192,7 +193,7 @@ public class RegistrationServiceTest {
 
 
     private Registration createValidRegistration() {
-        return Registration.builder()
+        return Registration.builder() // com o builder é mockado os objetos que necessita
                 .id(101)
                 .name("Ana Neri")
                 .dateOfRegistration("01/04/2022")
