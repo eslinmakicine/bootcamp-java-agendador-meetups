@@ -62,10 +62,10 @@ public class RegistrationControllerTest {
         BDDMockito.given(registrationService.save(any(Registration.class))).willReturn(savedRegistration);
 
 
-        String json  = new ObjectMapper().writeValueAsString(registrationDTOBuilder); //mapeia objeto em json
+        String json  = new ObjectMapper().writeValueAsString(registrationDTOBuilder); //mapeia o objeto em json
 
 
-        MockHttpServletRequestBuilder request = MockMvcRequestBuilders //simula uma requisição
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders //simula request
                 .post(REGISTRATION_API)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
