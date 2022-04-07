@@ -279,7 +279,7 @@ public class RegistrationControllerTest {
 
 
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
-                .put(REGISTRATION_API.concat(queryString))
+                .get(REGISTRATION_API.concat(queryString))
                 .accept(MediaType.APPLICATION_JSON);
 
         mockMvc

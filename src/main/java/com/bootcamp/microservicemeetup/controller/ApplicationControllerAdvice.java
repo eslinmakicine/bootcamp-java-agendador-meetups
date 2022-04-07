@@ -22,7 +22,6 @@ public class ApplicationControllerAdvice {
         return new ApiErrors(bindingResult);
     }
 
-
     @ExceptionHandler(BusinessException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiErrors handleBusinessException(BusinessException e) {
