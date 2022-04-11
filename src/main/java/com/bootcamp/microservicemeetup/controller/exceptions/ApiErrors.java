@@ -12,18 +12,19 @@ public class ApiErrors {
 
     private final List<String> errors;
 
-    public ApiErrors(BindingResult bindingResult) {
-        this.errors = new ArrayList<>();
-        bindingResult.getAllErrors()
-                .forEach(error -> this.errors.add(error.getDefaultMessage()));
+    public ApiErrors(BindingResult bindingResult) { //dentro desse, como se estivessemos mapeando e fazendo o construtor dessa classe, vamos chamar a classe bindingResult e nomeala novamente
+        this.errors = new ArrayList<>(); //construtor da classe
+        bindingResult.getAllErrors() //declarar a classe e chamar esse método
+                .forEach(error -> this.errors.add(error.getDefaultMessage())); //mapear com foreach, trazer um lambda e definir construtor do erros. Dele vamos adc que td erro terá uma msg default. E a partir do default, vamos pegar essa msg e exibir ao usuário
     }
 
-    public ApiErrors(BusinessException e) {
-        this.errors = Arrays.asList(e.getMessage());
+    public ApiErrors(BusinessException e) { //definir metodo e trazer BusinessException
+        this.errors = Arrays.asList(e.getMessage()); //para cada classe de erro iremos trazer o construtor dela. E criar uma lista onde irá trazer a msg
     }
 
-    public ApiErrors(ResponseStatusException e) {
-        this.errors = Arrays.asList(e.getReason());
+    public ApiErrors(ResponseStatusException e) {//definir metodo e trazer ResponseStatusException
+        this.errors = Arrays.asList(e.getReason());//para cada classe de erro iremos trazer o construtor dela. E criar uma lista onde irá trazer a razão
+                                                    //foi pego a getReason pois erros de status nao retornam msg, retornam razões
     }
 
     public List<String> getErrors() {

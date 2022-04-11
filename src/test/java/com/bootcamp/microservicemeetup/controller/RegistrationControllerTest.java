@@ -4,6 +4,7 @@ import com.bootcamp.microservicemeetup.exception.BusinessException;
 import com.bootcamp.microservicemeetup.model.RegistrationDTO;
 import com.bootcamp.microservicemeetup.model.entity.Registration;
 import com.bootcamp.microservicemeetup.service.RegistrationService;
+
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -153,13 +154,13 @@ public class RegistrationControllerTest {
     @DisplayName("Should return NOT FOUND when the registration doesn't exists")
     public void registrationNotFoundTest() throws Exception {
 
-        BDDMockito.given(registrationService.getRegistrationById(anyInt())).willReturn(Optional.empty());
+        BDDMockito.given(registrationService.getRegistrationById(anyInt())).willReturn(Optional.empty()); //ao chamar getRegistrationById, espero que retorne um optional vazio
 
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders //mockar requisição para id inexistente
                 .get(REGISTRATION_API.concat("/" + 1))
                 .accept(MediaType.APPLICATION_JSON);
 
-        mockMvc.perform(requestBuilder)
+        mockMvc.perform(requestBuilder) //quero q ele performe a request acima, e espero q retorne status notFound
                 .andExpect(status().isNotFound());
     }
 
@@ -201,9 +202,9 @@ public class RegistrationControllerTest {
     public void updateRegistrationTest() throws Exception {
 
         Integer id = 11;
-        String json = new ObjectMapper().writeValueAsString(createNewRegistration());
+        String json = new ObjectMapper().writeValueAsString(createNewRegistration()); //ele precisa receber um json
 
-        Registration updatingRegistration =
+        Registration updatingRegistration = //cria registro que será atualizado
                 Registration.builder()
                 .id(id)
                 .name("Julie Neri")
@@ -274,7 +275,7 @@ public class RegistrationControllerTest {
                 .willReturn(new PageImpl<Registration>(Arrays.asList(registration), PageRequest.of(0,100), 1));
 
 
-        String queryString = String.format("?name=%s&dateOfRegistration=%s&page=0&size=100",
+        String queryString = String.format("?name=%s&dateOfRegistration=%s&page=0&size=100", //passando uma query para dps concatenar na URL. A % significa o dado que vai estar vindo. O "s" significa qualquer coisa q vier dps disso q é o dado q vai passar
                 registration.getRegistration(), registration.getDateOfRegistration());
 
 
@@ -285,7 +286,7 @@ public class RegistrationControllerTest {
         mockMvc
                 .perform(requestBuilder)
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("content", Matchers.hasSize(1)))
+                .andExpect(jsonPath("content", Matchers.hasSize(1))) //vai validar somente a parte de paginação
                 .andExpect(jsonPath("totalElements"). value(1))
                 .andExpect(jsonPath("pageable.pageSize"). value(100))
                 .andExpect(jsonPath("pageable.pageNumber"). value(0));

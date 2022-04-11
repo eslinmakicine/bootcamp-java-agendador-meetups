@@ -3,6 +3,7 @@ package com.bootcamp.microservicemeetup.controller;
 import com.bootcamp.microservicemeetup.model.RegistrationDTO;
 import com.bootcamp.microservicemeetup.model.entity.Registration;
 import com.bootcamp.microservicemeetup.service.RegistrationService;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -55,7 +56,8 @@ public class RegistrationController {
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteByRegistrationId(@PathVariable Integer id) {
-        Registration registration = registrationService.getRegistrationById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Registration registration = registrationService.getRegistrationById(id) //mapeio a entidade, trago o id
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));  //trago tratamento em q se ele nao retornar isso, irá retornar uma ResponseStatusException com status Not Found
         registrationService.delete(registration);
     }
 
@@ -63,20 +65,21 @@ public class RegistrationController {
     @PutMapping("{id}")
     public RegistrationDTO update(@PathVariable Integer id, RegistrationDTO registrationDTO) {
 
-        return registrationService.getRegistrationById(id).map(registration -> {
-            registration.setName(registrationDTO.getName());
-            registration.setDateOfRegistration(registrationDTO.getDateOfRegistration());
-            registration = registrationService.update(registration);
+        return registrationService.getRegistrationById(id).map(registration -> { //define os atributos que precisam ter na hora de atualizar
+            registration.setName(registrationDTO.getName()); //seta os registros na DTO
+            registration.setDateOfRegistration(registrationDTO.getDateOfRegistration()); //seta os registros na DTO
+            registration = registrationService.update(registration); //faz segundo mapeamento onde dps de atualizar essas informações, chama o metodo para dar update nessas informações
 
-            return modelMapper.map(registration, RegistrationDTO.class);
-        }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+            return modelMapper.map(registration, RegistrationDTO.class); //retorna modelMapper e faz como se fosse uma comparação entre registration e RegistrationDTO
+        }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)); //
 
     }
 
     @GetMapping
-    public Page<RegistrationDTO> find(RegistrationDTO dto, Pageable pageRequest) {
-        Registration filter = modelMapper.map(dto, Registration.class);
-        Page<Registration> result = registrationService.find(filter, pageRequest);
+    public Page<RegistrationDTO> find(RegistrationDTO dto, Pageable pageRequest) { //coloca o Pageable como se fosse a requisição desse método
+        Registration filter = modelMapper.map(dto, Registration.class); //chamo a entidado que é onde aplicarei o filtro, dps mapear as informações
+        Page<Registration> result = registrationService.find(filter, pageRequest); //chamo Page, aplico a entidade nele e trago como resultado o service.find, passando filter e pageRequest
+                                                                                    //desse metodo, busque de tal forma e com qual requisição
 
         List<RegistrationDTO> list = result.getContent()
                 .stream()

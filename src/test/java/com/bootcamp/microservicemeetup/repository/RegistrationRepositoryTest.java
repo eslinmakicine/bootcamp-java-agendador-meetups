@@ -1,6 +1,7 @@
 package com.bootcamp.microservicemeetup.repository;
 
 import com.bootcamp.microservicemeetup.model.entity.Registration;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -97,14 +98,6 @@ public class RegistrationRepositoryTest {
         assertThat(deleteRegistration).isNull();
 
     }
-
-
-
-
-
-
-
-
 
 
     private Registration createNewRegistration(String registration) {
