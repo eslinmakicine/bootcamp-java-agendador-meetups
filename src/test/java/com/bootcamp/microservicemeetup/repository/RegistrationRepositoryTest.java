@@ -18,12 +18,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
 @ActiveProfiles("test")
-@DataJpaTest
+@DataJpaTest //para simular comportamento de banco de dados
 public class RegistrationRepositoryTest {
 
 
     @Autowired
-    TestEntityManager entityManager;
+    TestEntityManager entityManager; //é uma classe junto do JPA que conseguimos fazer simulações de teste. Simula varios comportamentos do contexto de teste
 
     @Autowired
     RegistrationRepository repository;
@@ -36,7 +36,7 @@ public class RegistrationRepositoryTest {
         String registration = "123";
 
         Registration registration_attribute = createNewRegistration(registration);
-        entityManager.persist(registration_attribute);
+        entityManager.persist(registration_attribute); //metodo persist é pra persistir (gravar o objeto no banco de dados) o objeto que foi criado no banco de dados
 
         boolean exists = repository.existsByRegistration(registration);
 
@@ -49,7 +49,7 @@ public class RegistrationRepositoryTest {
 
         String registration = "123";
 
-        boolean exists = repository.existsByRegistration(registration);
+        boolean exists = repository.existsByRegistration(registration); //como ele nao foi persistido, ele vai vir como false
 
         assertThat(exists).isFalse();
 
@@ -75,9 +75,9 @@ public class RegistrationRepositoryTest {
 
         Registration registration_attribute = createNewRegistration("323");
 
-        Registration savedRegistration = repository.save(registration_attribute);
+        Registration savedRegistration = repository.save(registration_attribute); //aqui simula o save do banco de dados
 
-        assertThat(savedRegistration.getId()).isNotNull();
+        assertThat(savedRegistration.getId()).isNotNull(); //valida que nao está vazio, senao nao vai conseguir salvar
 
     }
 
@@ -89,18 +89,18 @@ public class RegistrationRepositoryTest {
         entityManager.persist(registration_attribute);
 
         Registration foundRegistration = entityManager
-                .find(Registration.class, registration_attribute.getId());
-        repository.delete(foundRegistration);
+                .find(Registration.class, registration_attribute.getId()); //dessa classe do registration, traga o id
+        repository.delete(foundRegistration); //ao ter o id, delete o registro
 
         Registration deleteRegistration = entityManager
-                .find(Registration.class, registration_attribute.getId());
+                .find(Registration.class, registration_attribute.getId()); //chamo o registro que deletei anteriormente
 
-        assertThat(deleteRegistration).isNull();
+        assertThat(deleteRegistration).isNull(); //garanto que ele é nulo, pra confirmar que foi excluido
 
     }
 
 
-    private Registration createNewRegistration(String registration) {
+    private Registration createNewRegistration(String registration) { //metodo auxiliar para construir os objetos
         return Registration.builder()
                 .name("Ana Neri")
                 .dateOfRegistration("10/10/2021")

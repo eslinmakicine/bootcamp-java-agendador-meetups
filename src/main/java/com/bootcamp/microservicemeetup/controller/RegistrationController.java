@@ -69,7 +69,6 @@ public class RegistrationController {
             registration.setName(registrationDTO.getName()); //seta os registros na DTO
             registration.setDateOfRegistration(registrationDTO.getDateOfRegistration()); //seta os registros na DTO
             registration = registrationService.update(registration); //faz segundo mapeamento onde dps de atualizar essas informações, chama o metodo para dar update nessas informações
-
             return modelMapper.map(registration, RegistrationDTO.class); //retorna modelMapper e faz como se fosse uma comparação entre registration e RegistrationDTO
         }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)); //
 
@@ -77,15 +76,15 @@ public class RegistrationController {
 
     @GetMapping
     public Page<RegistrationDTO> find(RegistrationDTO dto, Pageable pageRequest) { //coloca o Pageable como se fosse a requisição desse método
-        Registration filter = modelMapper.map(dto, Registration.class); //chamo a entidado que é onde aplicarei o filtro, dps mapear as informações
+        Registration filter = modelMapper.map(dto, Registration.class); //chamo a entidado que é onde aplicarei o filtro, dps mapear as informações com modelMapper
         Page<Registration> result = registrationService.find(filter, pageRequest); //chamo Page, aplico a entidade nele e trago como resultado o service.find, passando filter e pageRequest
-                                                                                    //desse metodo, busque de tal forma e com qual requisição
+                                                                                    //, o codigo "registrationService.find(filter, pageRequest)" significa = nesse metodo, busque de tal forma e com qual requisição
 
-        List<RegistrationDTO> list = result.getContent()
-                .stream()
-                .map(entity -> modelMapper.map(entity, RegistrationDTO.class))
-                .collect(Collectors.toList());
+        List<RegistrationDTO> list = result.getContent() //pra ele devolver essa informações em forma de lista, precisamos definir uma Lista. Chamo o DTO, desse resultado vou querer pegar o conteudo dele
+                .stream() //desse conteudo vou mapear em formato de um Stream
+                .map(entity -> modelMapper.map(entity, RegistrationDTO.class)) //o stream vou mapear, pegar minha entidade (entity seria como um apelido para lambda function), trago o map dentro do mapping, vou chamar o DTO
+                .collect(Collectors.toList()); //e por fim irei coletar, para isso chamarei o Collectors.toList()
 
-        return new PageImpl<RegistrationDTO>(list, pageRequest, result.getTotalElements());
+        return new PageImpl<RegistrationDTO>(list, pageRequest, result.getTotalElements()); //retorna uma instancia de um PageImpl (pageImpl seria implementar a lógica dentro de um método). Com isso traria um list, dto e result com tds os elementos
     }
 }
