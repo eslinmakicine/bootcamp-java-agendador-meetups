@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 //as anotações abaixo servem para não ser necessário criar get, set, construtores com a ajuda de lombok...
 @Data
@@ -29,5 +30,8 @@ public class Registration {
 
     @Column
     private String registration; //seria como se fosse o versionamento. Se houver alguma alteração nesse objeto, esse atributo irá mudar
+
+    @OneToMany(mappedBy = "registration")
+    private List<Meetup> meetups;
 
 }

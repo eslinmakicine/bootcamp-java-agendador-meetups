@@ -4,7 +4,6 @@ import com.bootcamp.microservicemeetup.exception.BusinessException;
 import com.bootcamp.microservicemeetup.model.entity.Registration;
 import com.bootcamp.microservicemeetup.repository.RegistrationRepository;
 import com.bootcamp.microservicemeetup.service.RegistrationService;
-
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 

@@ -35,8 +35,8 @@ public class RegistrationRepositoryTest {
 
         String registration = "123";
 
-        Registration registration_attribute = createNewRegistration(registration);
-        entityManager.persist(registration_attribute); //metodo persist é pra persistir (gravar o objeto no banco de dados) o objeto que foi criado no banco de dados
+        Registration registration_Class_attribute = createNewRegistration(registration);
+        entityManager.persist(registration_Class_attribute); //metodo persist é pra persistir (gravar o objeto no banco de dados) o objeto que foi criado no banco de dados
 
         boolean exists = repository.existsByRegistration(registration);
 
@@ -59,11 +59,11 @@ public class RegistrationRepositoryTest {
     @DisplayName("Should get an registration by id")
     public void findByIdTest() {
 
-        Registration registration_attribute = createNewRegistration("323");
-        entityManager.persist(registration_attribute);
+        Registration registration_Class_attribute = createNewRegistration("323");
+        entityManager.persist(registration_Class_attribute);
 
         Optional<Registration> foundRegistration = repository
-                .findById(registration_attribute.getId());
+                .findById(registration_Class_attribute.getId());
 
         assertThat(foundRegistration.isPresent()).isTrue();
 
@@ -73,9 +73,9 @@ public class RegistrationRepositoryTest {
     @DisplayName("Should save an registration")
     public void saveRegistrationTest() {
 
-        Registration registration_attribute = createNewRegistration("323");
+        Registration registration_Class_attribute = createNewRegistration("323");
 
-        Registration savedRegistration = repository.save(registration_attribute); //aqui simula o save do banco de dados
+        Registration savedRegistration = repository.save(registration_Class_attribute); //aqui simula o save do banco de dados
 
         assertThat(savedRegistration.getId()).isNotNull(); //valida que nao está vazio, senao nao vai conseguir salvar
 
@@ -85,22 +85,22 @@ public class RegistrationRepositoryTest {
     @DisplayName("Should delete and registration from the base")
     public void deleteRegistation() {
 
-        Registration registration_attribute = createNewRegistration("323");
-        entityManager.persist(registration_attribute);
+        Registration registration_Class_attribute = createNewRegistration("323");
+        entityManager.persist(registration_Class_attribute);
 
         Registration foundRegistration = entityManager
-                .find(Registration.class, registration_attribute.getId()); //dessa classe do registration, traga o id
+                .find(Registration.class, registration_Class_attribute.getId()); //dessa classe do registration, traga o id
         repository.delete(foundRegistration); //ao ter o id, delete o registro
 
         Registration deleteRegistration = entityManager
-                .find(Registration.class, registration_attribute.getId()); //chamo o registro que deletei anteriormente
+                .find(Registration.class, registration_Class_attribute.getId()); //chamo o registro que deletei anteriormente
 
         assertThat(deleteRegistration).isNull(); //garanto que ele é nulo, pra confirmar que foi excluido
 
     }
 
 
-    private Registration createNewRegistration(String registration) { //metodo auxiliar para construir os objetos
+    public static Registration createNewRegistration(String registration) { //metodo auxiliar para construir os objetos
         return Registration.builder()
                 .name("Ana Neri")
                 .dateOfRegistration("10/10/2021")

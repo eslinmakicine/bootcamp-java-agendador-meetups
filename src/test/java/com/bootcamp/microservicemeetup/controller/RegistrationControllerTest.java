@@ -1,10 +1,10 @@
 package com.bootcamp.microservicemeetup.controller;
 
+import com.bootcamp.microservicemeetup.controller.resource.RegistrationController;
 import com.bootcamp.microservicemeetup.exception.BusinessException;
-import com.bootcamp.microservicemeetup.model.RegistrationDTO;
+import com.bootcamp.microservicemeetup.controller.dto.RegistrationDTO;
 import com.bootcamp.microservicemeetup.model.entity.Registration;
 import com.bootcamp.microservicemeetup.service.RegistrationService;
-
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -56,7 +56,7 @@ public class RegistrationControllerTest {
 
         // cenario
         RegistrationDTO registrationDTOBuilder = createNewRegistration();
-        Registration savedRegistration  = Registration.builder().id(101)
+        Registration savedRegistration = Registration.builder().id(101)
                 .name("Ana Neri").dateOfRegistration("10/10/2021").registration("001").build();
 
 
@@ -292,6 +292,9 @@ public class RegistrationControllerTest {
                 .andExpect(jsonPath("pageable.pageNumber"). value(0));
 
     }
+
+
+
 
     private RegistrationDTO createNewRegistration() {
         return  RegistrationDTO.builder().id(101).name("Ana Neri").dateOfRegistration("10/10/2021").registration("001").build();
