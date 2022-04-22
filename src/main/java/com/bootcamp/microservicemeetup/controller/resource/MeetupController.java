@@ -27,9 +27,7 @@ public class MeetupController {
     private final MeetupService meetupService;
     private final RegistrationService registrationService;
     private final ModelMapper modelMapper;
-
-
-
+/*
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     private Integer create(@RequestBody MeetupDTO meetupDTO) {
@@ -68,5 +66,5 @@ public class MeetupController {
 
                 }).collect(Collectors.toList());
         return new PageImpl<MeetupDTO>(meetups, pageRequest, result.getTotalElements());
-    }
+    }*/
 }

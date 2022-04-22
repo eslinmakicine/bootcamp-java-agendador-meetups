@@ -14,7 +14,7 @@ import java.util.Optional;
 @Service
 public class MeetupServiceImpl implements MeetupService {
 
-
+/*
     private MeetupRepository repository;
 
     public MeetupServiceImpl(MeetupRepository repository) {
@@ -30,10 +30,11 @@ public class MeetupServiceImpl implements MeetupService {
     public Optional<Meetup> getById(Integer id) {
         return repository.findById(id);
     }
+    //registration tem delete
 
     @Override
-    public Meetup update(Meetup loan) {
-        return repository.save(loan);
+    public Meetup update(Meetup meetup) {
+        return repository.save(meetup);
     }
 
     @Override
@@ -47,5 +48,5 @@ public class MeetupServiceImpl implements MeetupService {
         return repository.findByRegistration(registration, pageable);
     }
 
-
+*/
 }

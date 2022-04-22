@@ -30,8 +30,13 @@ public class Registration {
 
     @Column
     private String registration; //seria como se fosse o versionamento. Se houver alguma alteração nesse objeto, esse atributo irá mudar
-
+    //um registro para mts meetups
+    /*
     @OneToMany(mappedBy = "registration")
     private List<Meetup> meetups;
+    */
+    @ManyToOne
+    @JoinColumn(name = "id_meetup")
+    private Meetup meetup;
 
 }

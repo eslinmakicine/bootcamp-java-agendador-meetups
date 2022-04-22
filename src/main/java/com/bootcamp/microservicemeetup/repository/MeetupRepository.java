@@ -9,7 +9,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface MeetupRepository extends JpaRepository<Meetup, Integer> {
-
+    /*
+    //ler mais sobre query, ficou confuso
+    //selecione 1 registro do meetup, e
     @Query( value = " select l from Meetup as l join l.registration as b where b.registration = :registration or l.event =:event ")
     Page<Meetup> findByRegistrationOnMeetup(
             @Param("registration") String registration,
@@ -17,5 +19,5 @@ public interface MeetupRepository extends JpaRepository<Meetup, Integer> {
             Pageable pageable
     );
 
-    Page<Meetup> findByRegistration(Registration registration, Pageable pageable );
+    Page<Meetup> findByRegistration(Registration registration, Pageable pageable ); */
 }
