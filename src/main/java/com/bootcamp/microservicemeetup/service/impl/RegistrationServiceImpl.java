@@ -31,7 +31,6 @@ public class RegistrationServiceImpl implements RegistrationService {
         return this.repository.findById(id);
     }
 
-
     // inserir mais uma validacao no delete();
     @Override
     public void delete(Registration registration) {

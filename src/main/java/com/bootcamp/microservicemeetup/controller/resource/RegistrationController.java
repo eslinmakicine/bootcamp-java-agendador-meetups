@@ -57,9 +57,9 @@ public class RegistrationController {
         registrationService.delete(registration);
     }
 
-
     @PutMapping("{id}")
-    public RegistrationDTO update(@PathVariable Integer id, RegistrationDTO registrationDTO) {
+    public RegistrationDTO update(@PathVariable Integer id,
+                                  @RequestBody @Valid RegistrationDTO registrationDTO) {
 
         return registrationService.getRegistrationById(id).map(registration -> { //define os atributos que precisam ter na hora de atualizar
             registration.setName(registrationDTO.getName()); //seta os registros na DTO

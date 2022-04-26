@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -22,8 +23,8 @@ public class Meetup {
     private String event;
 
     @JoinColumn(name = "id_registration") //apelido para sabermos que é de registration, nao é obrigatorio o nome
-    @ManyToOne //estamps introduzindo a tabela id_registration no meetup pois sao dados em comum
-    // mtos meetups para 1 registro - 1 registro só pode ir em um meetup
+    @ManyToOne          //estamps introduzindo a tabela id_registration no meetup pois sao dados em comum
+                        // mtos meetups para 1 registro - 1 registro só pode ir em um meetup
     private Registration registration;
 
     @Column
@@ -31,4 +32,7 @@ public class Meetup {
 
     @Column
     private Boolean registered;
+
+    @OneToMany(mappedBy = "registration")
+    private List<RegistrationOnEvent> registrationsEvents;
 }

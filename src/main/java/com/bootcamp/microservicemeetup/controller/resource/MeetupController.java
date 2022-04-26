@@ -28,8 +28,6 @@ public class MeetupController {
     private final RegistrationService registrationService;
     private final ModelMapper modelMapper;
 
-
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     private Integer create(@RequestBody MeetupDTO meetupDTO) {
@@ -64,9 +62,34 @@ public class MeetupController {
 
                     MeetupDTO meetupDTO = modelMapper.map(entity, MeetupDTO.class);
                     meetupDTO.setRegistration(registrationDTO);
+                    meetupDTO.setRegistrationAttribute(registrationDTO.getRegistration());
+
                     return meetupDTO;
 
                 }).collect(Collectors.toList());
         return new PageImpl<MeetupDTO>(meetups, pageRequest, result.getTotalElements());
     }
+
+    @GetMapping("/all")
+    public List<MeetupDTO> findAll() {
+        List<Meetup> result = meetupService.findAll();
+        List<MeetupDTO> meetups = result
+                .stream()
+                .map(entity -> {
+
+                    Registration registration = entity.getRegistration();
+                    RegistrationDTO registrationDTO = modelMapper.map(registration, RegistrationDTO.class);
+
+                    MeetupDTO meetupDTO = modelMapper.map(entity, MeetupDTO.class);
+                    meetupDTO.setRegistration(registrationDTO);
+                    meetupDTO.setRegistrationAttribute(registrationDTO.getRegistration());
+
+                    meetupDTO.setRegistration(registrationDTO);
+
+                    return meetupDTO;
+
+                }).collect(Collectors.toList());
+        return meetups;
+    }
+
 }
