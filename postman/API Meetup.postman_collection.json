@@ -6,6 +6,207 @@
 	},
 	"item": [
 		{
+			"name": "Run",
+			"item": [
+				{
+					"name": "Registration - POST Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"name\":\"Éslin Makicine Martins\",\r\n\t\"dateOfRegistration\": \"30/03/2022\",\r\n\t\"registration\": \"001\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/registration",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"registration"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registration - POST Copy 2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"name\":\"Ketlyn Francis Martins\",\r\n\t\"dateOfRegistration\": \"01/04/2022\",\r\n\t\"registration\": \"002\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/registration",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"registration"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registration - POST Copy 3",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"name\":\"Elsa Aparecida Lara\",\r\n\t\"dateOfRegistration\": \"31/03/2022\",\r\n\t\"registration\": \"003\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/registration",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"registration"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registration - GET All Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/registration",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"registration"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Meetup - POST Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"event\": \"Java na Prática\",\r\n\t\"meetupDate\": \"12/05/2022\",\r\n    \"registrationAttribute\": \"001\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/meetups",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"meetups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Meetup - POST Copy 2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"event\": \"Spring Boot\",\r\n\t\"meetupDate\": \"17/05/2022\",\r\n    \"registrationAttribute\": \"002\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/meetups",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"meetups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Meetup - GET Page/Filter Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/meetups?registration=001",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"meetups"
+							],
+							"query": [
+								{
+									"key": "event",
+									"value": "WoMakers Boot",
+									"disabled": true
+								},
+								{
+									"key": "registration",
+									"value": "001"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Registration - GET All",
 			"request": {
 				"method": "GET",
@@ -32,7 +233,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\t\"name\":\"Ketlyn\",\r\n\t\"dateOfRegistration\": \"29/03/2022\",\r\n\t\"registration\": \"002\"\r\n}",
+					"raw": "{\r\n\t\"name\":\"Beatriz\",\r\n\t\"dateOfRegistration\": \"30/03/2022\",\r\n\t\"registration\": \"003\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
