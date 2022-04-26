@@ -31,7 +31,6 @@ public class MeetupServiceImpl implements MeetupService {
     public Optional<Meetup> getById(Integer id) {
         return repository.findById(id);
     }
-    //registration tem delete
 
     @Override
     public Meetup update(Meetup meetup) {
@@ -49,7 +48,6 @@ public class MeetupServiceImpl implements MeetupService {
     public List<Meetup> findAll() {
         return repository.findAll();
     }
-
 
 
 }
