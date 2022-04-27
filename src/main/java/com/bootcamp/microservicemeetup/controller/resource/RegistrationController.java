@@ -40,7 +40,7 @@ public class RegistrationController {
 
     @GetMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
-    public RegistrationDTO get (@PathVariable Integer id) { //PathVariable é passado na url, PathParameter é no body
+    public RegistrationDTO get (@PathVariable Integer id) {
 
         return registrationService
                 .getRegistrationById(id)
@@ -51,8 +51,8 @@ public class RegistrationController {
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteByRegistrationId(@PathVariable Integer id) {
-        Registration registration = registrationService.getRegistrationById(id) //mapeio a entidade, trago o id
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));  //trago tratamento em q se ele nao retornar isso, irá retornar uma ResponseStatusException com status Not Found
+        Registration registration = registrationService.getRegistrationById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         registrationService.delete(registration);
     }
 
@@ -60,26 +60,24 @@ public class RegistrationController {
     public RegistrationDTO update(@PathVariable Integer id,
                                   @RequestBody @Valid RegistrationDTO registrationDTO) {
 
-        return registrationService.getRegistrationById(id).map(registration -> { //define os atributos que precisam ter na hora de atualizar
-            registration.setName(registrationDTO.getName()); //seta os registros na DTO
-            registration.setDateOfRegistration(registrationDTO.getDateOfRegistration()); //seta os registros na DTO
-            registration = registrationService.update(registration); //faz segundo mapeamento onde dps de atualizar essas informações, chama o metodo para dar update nessas informações
-            return modelMapper.map(registration, RegistrationDTO.class); //retorna modelMapper e faz como se fosse uma comparação entre registration e RegistrationDTO
+        return registrationService.getRegistrationById(id).map(registration -> {
+            registration.setName(registrationDTO.getName());
+            registration.setDateOfRegistration(registrationDTO.getDateOfRegistration());
+            registration = registrationService.update(registration);
+            return modelMapper.map(registration, RegistrationDTO.class);
         }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)); //
-
     }
 
     @GetMapping
-    public Page<RegistrationDTO> find(RegistrationDTO dto, Pageable pageRequest) { //coloca o Pageable como se fosse a requisição desse método
-        Registration filter = modelMapper.map(dto, Registration.class); //chamo a entidado que é onde aplicarei o filtro, dps mapear as informações com modelMapper
-        Page<Registration> result = registrationService.find(filter, pageRequest); //chamo Page, aplico a entidade nele e trago como resultado o service.find, passando filter e pageRequest
-                                                                                    //, o codigo "registrationService.find(filter, pageRequest)" significa = nesse metodo, busque de tal forma e com qual requisição
+    public Page<RegistrationDTO> find(RegistrationDTO dto, Pageable pageRequest) {
+        Registration filter = modelMapper.map(dto, Registration.class);
+        Page<Registration> result = registrationService.find(filter, pageRequest);
 
-        List<RegistrationDTO> list = result.getContent() //pra ele devolver essa informações em forma de lista, precisamos definir uma Lista. Chamo o DTO, desse resultado vou querer pegar o conteudo dele
-                .stream() //desse conteudo vou mapear em formato de um Stream
-                .map(entity -> modelMapper.map(entity, RegistrationDTO.class)) //o stream vou mapear, pegar minha entidade (entity seria como um apelido para lambda function), trago o map dentro do mapping, vou chamar o DTO
-                .collect(Collectors.toList()); //e por fim irei coletar, para isso chamarei o Collectors.toList()
+        List<RegistrationDTO> list = result.getContent()
+                .stream()
+                .map(entity -> modelMapper.map(entity, RegistrationDTO.class))
+                .collect(Collectors.toList());
 
-        return new PageImpl<RegistrationDTO>(list, pageRequest, result.getTotalElements()); //retorna uma instancia de um PageImpl (pageImpl seria implementar a lógica dentro de um método). Com isso traria um list, dto e result com tds os elementos
+        return new PageImpl<RegistrationDTO>(list, pageRequest, result.getTotalElements());
     }
 }

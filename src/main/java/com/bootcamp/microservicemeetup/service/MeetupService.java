@@ -11,14 +11,14 @@ import java.util.Optional;
 
 public interface MeetupService {
 
-    Meetup save(Meetup meetup); //em registration é (Meetup any)
+    Meetup save(Meetup meetup);
 
     Optional<Meetup> getById(Integer id);
-    //em registration tem delete
+
     Meetup update(Meetup meetup);
 
-    Page<Meetup> find(MeetupFilterDTO filterDTO, Pageable pageable); //em registration nao usa DTO
+    Page<Meetup> find(MeetupFilterDTO filterDTO, Pageable pageable);
 
-    List<Meetup> findAll(); //em registration nao usa DTO
+    List<Meetup> findAll();
 
 }

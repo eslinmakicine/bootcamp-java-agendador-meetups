@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class ServicoDeAgendamentoDeMeetupsApplication {
 
-	//adc essa linha parou de dar erro
 	@Bean
 	public ModelMapper modelMapper() {
 		return new ModelMapper();

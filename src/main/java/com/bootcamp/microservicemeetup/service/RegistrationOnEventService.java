@@ -15,11 +15,11 @@ public interface RegistrationOnEventService {
     RegistrationOnEvent save(RegistrationOnEvent registrationOnEvent);
 /*
     Optional<RegistrationOnEvent> getById(Integer id);
-    //em registration tem delete
+    
     RegistrationOnEvent update(RegistrationOnEvent registrationOnEvent);
 */
-    Page<RegistrationOnEvent> find(MeetupFilterDTO filterDTO, Pageable pageable); //em registration nao usa DTO
+    Page<RegistrationOnEvent> find(MeetupFilterDTO filterDTO, Pageable pageable);
 
-    List<RegistrationOnEvent> findAll(); //em registration nao usa DTO
+    List<RegistrationOnEvent> findAll();
 
 }

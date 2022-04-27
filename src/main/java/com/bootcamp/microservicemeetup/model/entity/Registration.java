@@ -29,10 +29,12 @@ public class Registration {
     private String dateOfRegistration;
 
     @Column
-    private String registration; //seria como se fosse o versionamento. Se houver alguma alteração nesse objeto, esse atributo irá mudar
+    private String registration;
 
+/*
     @OneToMany(mappedBy = "registration")
     private List<Meetup> meetups;
+*/
 
     @OneToMany(mappedBy = "registration")
     private List<RegistrationOnEvent> registrationsEvents;

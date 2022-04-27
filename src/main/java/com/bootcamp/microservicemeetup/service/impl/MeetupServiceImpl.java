@@ -15,7 +15,6 @@ import java.util.Optional;
 @Service
 public class MeetupServiceImpl implements MeetupService {
 
-
     private MeetupRepository repository;
 
     public MeetupServiceImpl(MeetupRepository repository) {
@@ -39,15 +38,15 @@ public class MeetupServiceImpl implements MeetupService {
 
     @Override
     public Page<Meetup> find(MeetupFilterDTO filterDTO, Pageable pageable) {
-        if (filterDTO.getRegistration() == null && filterDTO.getEvent() == null )  {
+        /* if (// filterDTO.getRegistration() == null &&
+                filterDTO.getEvent() == null )  {
             return repository.findAll(pageable);
-        }
-        return repository.findByRegistrationOnMeetup( filterDTO.getRegistration(), filterDTO.getEvent(), pageable );
+        } */
+        return repository.findAll(pageable);
     }
 
     public List<Meetup> findAll() {
         return repository.findAll();
     }
-
 
 }

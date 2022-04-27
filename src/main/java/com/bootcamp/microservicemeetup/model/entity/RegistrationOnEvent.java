@@ -30,4 +30,5 @@ public class RegistrationOnEvent {
 
     @Column
     private Boolean registeredEvent;
+
 }

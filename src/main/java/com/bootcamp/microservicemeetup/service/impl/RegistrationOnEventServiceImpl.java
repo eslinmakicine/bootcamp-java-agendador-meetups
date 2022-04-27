@@ -18,7 +18,6 @@ import java.util.Optional;
 @Service
 public class RegistrationOnEventServiceImpl implements RegistrationOnEventService {
 
-
     private RegistrationOnEventRepository repository;
 
     public RegistrationOnEventServiceImpl(RegistrationOnEventRepository repository) {

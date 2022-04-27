@@ -1,6 +1,5 @@
 package com.bootcamp.microservicemeetup.config;
 
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -16,7 +15,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfig {
 
-
     @Bean
     public Docket docket() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -30,15 +28,15 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("Meetups API")
-                .description("RestApi de meetup produzida no bootcamp de Java da Womakerscode")
+                .description("RestApi de meetup desenvolvida no bootcamp de Java da Womakerscode")
                 .version("1.0")
                 .contact(contact())
                 .build();
     }
 
     private Contact contact() {
-        return new Contact("Womakerscode Ana Neri",
-                "http://womakerscode.org",
-                "neribia7@gmail.com");
+        return new Contact("Éslin Makicine Martins",
+                "https://www.linkedin.com/in/eslinmakicine/",
+                "eslinmartins@gmail.com");
     }
 }

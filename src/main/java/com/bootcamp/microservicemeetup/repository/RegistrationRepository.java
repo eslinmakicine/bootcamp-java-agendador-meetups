@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface RegistrationRepository extends JpaRepository<Registration, Integer> {
 
-    boolean existsByRegistration(String registration); //metodo pra validar se a versão ja foi criada, para garantir que nao tenha valores duplicados
+    boolean existsByRegistration(String registration);
 
     Optional<Registration> findByRegistration(String registrationAtrb);
 }
