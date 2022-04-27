@@ -13,8 +13,6 @@ public class MeetupDTO {
 
     private Integer id;
 
-    private String registrationAttribute;
-
     private String event;
 
     private String meetupDate;

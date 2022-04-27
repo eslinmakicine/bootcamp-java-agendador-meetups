@@ -72,7 +72,6 @@ public class RegistrationOnEventController {
 
                     RegistrationOnEventDTO registrationOnEventDTO = modelMapper.map(entity, RegistrationOnEventDTO.class);
 
-
                     registrationOnEventDTO.setRegistration(registrationDTO);
                     registrationOnEventDTO.setMeetup(meetupDTO);
                     registrationOnEventDTO.setRegistrationAttribute(registrationDTO.getRegistration());
@@ -84,5 +83,27 @@ public class RegistrationOnEventController {
         return new PageImpl<RegistrationOnEventDTO>(events, pageRequest, result.getTotalElements());
     }
 
+    @GetMapping("{eventAttribute}")
+    public Page<RegistrationOnEventDTO> findByEventId( @PathVariable Integer eventAttribute,
+                                                     MeetupFilterDTO dto, Pageable pageRequest) {
+        Page<RegistrationOnEvent> result = registrationOnEventService.findByEventId(eventAttribute, pageRequest);
+        List<RegistrationOnEventDTO> events = result
+                .getContent()
+                .stream()
+                .map(entity -> {
+
+                    Registration registration = entity.getRegistration();
+                    RegistrationDTO registrationDTO = modelMapper.map(registration, RegistrationDTO.class);
+
+                    RegistrationOnEventDTO registrationOnEventDTO = modelMapper.map(entity, RegistrationOnEventDTO.class);
+
+                    registrationOnEventDTO.setRegistration(registrationDTO);
+                    registrationOnEventDTO.setRegistrationAttribute(registrationDTO.getRegistration());
+
+                    return registrationOnEventDTO;
+
+                }).collect(Collectors.toList());
+        return new PageImpl<RegistrationOnEventDTO>(events, pageRequest, result.getTotalElements());
+    }
 
 }
