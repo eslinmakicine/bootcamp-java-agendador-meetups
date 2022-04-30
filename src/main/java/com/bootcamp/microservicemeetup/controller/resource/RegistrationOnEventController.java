@@ -49,16 +49,6 @@ public class RegistrationOnEventController {
         meetup.getRegistration().add(registration);
         meetupService.save(meetup);
 
-
-//        RegistrationEvent entity = RegistrationEvent.builder()
-//
-//                .user(user)
-//                .meetup(meetup)
-//                .dateRegistry(registrationEventDTO.getDateRegistry())
-//                .build();
-//
-//        entity = registrationOnEventService.save(entity);
-
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -67,31 +57,6 @@ public class RegistrationOnEventController {
         List<Meetup> result = meetupService.findAll();
 
         return result;
-
-
-//        List<RegistrationEventDTO> events = result
-//                .getContent()
-//                .stream()
-//                .map(entity -> {
-//
-//                    User user = entity.getUser();
-//                    UserDTO registrationDTO = modelMapper.map(user, UserDTO.class);
-//
-//                    Meetup meetup = entity.getMeetup();
-//                    MeetupDTO meetupDTO = modelMapper.map(meetup, MeetupDTO.class);
-//
-//                    RegistrationEventDTO registrationOnEventDTO = modelMapper.map(entity, RegistrationEventDTO.class);
-//
-//                    registrationOnEventDTO.setUser(registrationDTO);
-//                    registrationOnEventDTO.setMeetup(meetupDTO);
-//                    registrationOnEventDTO.setRegistrationAttribute(registrationDTO.getUser());
-//                    registrationOnEventDTO.setEventAttribute(meetupDTO.getId());
-//
-//                    return registrationOnEventDTO;
-//
-//                }).collect(Collectors.toList());
-
-
 
     }
 

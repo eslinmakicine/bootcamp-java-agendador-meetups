@@ -18,8 +18,6 @@ public interface RegistrationOnEventService {
 */
     Page<RegistrationOnEvent> find(MeetupFilterDTO filterDTO, Pageable pageable);
 
-   // Page<RegistrationOnEvent> findByEventId(Integer eventAttribute, Pageable pageable);
-
     List<RegistrationOnEvent> findAll();
 
 }

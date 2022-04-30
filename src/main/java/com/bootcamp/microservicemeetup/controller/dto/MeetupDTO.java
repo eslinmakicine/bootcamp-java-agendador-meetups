@@ -17,5 +17,4 @@ public class MeetupDTO {
 
     private String meetupDate;
 
-    //private RegistrationDTO registration;
 }

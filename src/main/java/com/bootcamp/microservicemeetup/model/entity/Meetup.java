@@ -24,16 +24,6 @@ public class Meetup {
     @Column
     private String event;
 
-/*
-    @JoinColumn(name = "id_registration") //apelido para sabermos que é de registration, nao é obrigatorio o nome
-    @ManyToOne          //estamps introduzindo a tabela id_registration no meetup pois sao dados em comum
-                        // mtos meetups para 1 registro - 1 registro só pode ir em um meetup
-    private Registration registration;
-
-    @OneToMany(mappedBy = "registration")
-    private List<Registration> registrations;
-*/
-
     @Column
     private String meetupDate;
 

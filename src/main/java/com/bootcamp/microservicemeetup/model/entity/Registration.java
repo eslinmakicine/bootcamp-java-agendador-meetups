@@ -30,12 +30,8 @@ public class Registration {
     @Column
     private String registration;
 
-/*
-    @OneToMany(mappedBy = "registration")
-    private List<Meetup> meetups;
-*/
     @JsonIgnore
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "id_meetup")
     @ManyToOne
     private Meetup meetup;
 }

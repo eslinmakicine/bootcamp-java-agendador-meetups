@@ -12,16 +12,5 @@ package com.bootcamp.microservicemeetup.repository;
         import java.util.List;
 
 public interface RegistrationOnEventRepository extends JpaRepository<RegistrationOnEvent, Integer> {
-/*
-    @Query( value = " select l from RegistrationOnEvent as l join l.meetup as b where l.event =:event ")
-    Page<Meetup> findByRegistrationOnEvents(
-       //     @Param("registration") String registration,
-            @Param("event") String event,
-            Pageable pageable
-    ); */
-//
-//        @Query( value = " SELECT r.id, r.dateRegistry, m.event FROM RegistrationOnEvent r INNER JOIN meetup m ON r.eventAttribute =:eventAttribute ")
-//        Page<RegistrationOnEvent> findByEventId(@Param("eventAttribute") Integer eventAttribute,
-//                                                Pageable pageable);
 
 }
