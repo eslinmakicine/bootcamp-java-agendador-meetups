@@ -1,9 +1,7 @@
 package com.bootcamp.microservicemeetup.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -15,6 +13,7 @@ import java.util.List;
 @Builder
 @Entity
 @Table
+@ToString(exclude = "meetup")
 public class Registration {
 
     @Id
@@ -35,7 +34,8 @@ public class Registration {
     @OneToMany(mappedBy = "registration")
     private List<Meetup> meetups;
 */
-
-    @OneToMany(mappedBy = "registration")
-    private List<RegistrationOnEvent> registrationsEvents;
+    @JsonIgnore
+    @JoinColumn(name = "id")
+    @ManyToOne
+    private Meetup meetup;
 }

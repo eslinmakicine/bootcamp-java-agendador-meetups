@@ -16,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -35,7 +36,7 @@ public class RegistrationOnEventController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    private Integer create(@RequestBody RegistrationOnEventDTO registrationOnEventDTO) {
+    private ResponseEntity<Void> create(@RequestBody RegistrationOnEventDTO registrationOnEventDTO) {
 
         Registration registration = registrationService
                 .getRegistrationByRegistrationAttribute(registrationOnEventDTO.getRegistrationAttribute())
@@ -44,66 +45,55 @@ public class RegistrationOnEventController {
         Meetup meetup = meetupService
                 .getById(registrationOnEventDTO.getEventAttribute())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
+        registration.setMeetup(meetup);
+        meetup.getRegistration().add(registration);
+        meetupService.save(meetup);
 
-        RegistrationOnEvent entity = RegistrationOnEvent.builder()
 
-                .registration(registration)
-                .meetup(meetup)
-                .dateRegistry(registrationOnEventDTO.getDateRegistry())
-                .build();
+//        RegistrationEvent entity = RegistrationEvent.builder()
+//
+//                .user(user)
+//                .meetup(meetup)
+//                .dateRegistry(registrationEventDTO.getDateRegistry())
+//                .build();
+//
+//        entity = registrationOnEventService.save(entity);
 
-        entity = registrationOnEventService.save(entity);
-        return entity.getId();
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping
-    public Page<RegistrationOnEventDTO> find(MeetupFilterDTO dto, Pageable pageRequest) {
-        Page<RegistrationOnEvent> result = registrationOnEventService.find(dto, pageRequest);
-        List<RegistrationOnEventDTO> events = result
-                .getContent()
-                .stream()
-                .map(entity -> {
+    public List<Meetup> find(MeetupFilterDTO dto, Pageable pageRequest) {
+        List<Meetup> result = meetupService.findAll();
 
-                    Registration registration = entity.getRegistration();
-                    RegistrationDTO registrationDTO = modelMapper.map(registration, RegistrationDTO.class);
+        return result;
 
-                    Meetup meetup = entity.getMeetup();
-                    MeetupDTO meetupDTO = modelMapper.map(meetup, MeetupDTO.class);
 
-                    RegistrationOnEventDTO registrationOnEventDTO = modelMapper.map(entity, RegistrationOnEventDTO.class);
+//        List<RegistrationEventDTO> events = result
+//                .getContent()
+//                .stream()
+//                .map(entity -> {
+//
+//                    User user = entity.getUser();
+//                    UserDTO registrationDTO = modelMapper.map(user, UserDTO.class);
+//
+//                    Meetup meetup = entity.getMeetup();
+//                    MeetupDTO meetupDTO = modelMapper.map(meetup, MeetupDTO.class);
+//
+//                    RegistrationEventDTO registrationOnEventDTO = modelMapper.map(entity, RegistrationEventDTO.class);
+//
+//                    registrationOnEventDTO.setUser(registrationDTO);
+//                    registrationOnEventDTO.setMeetup(meetupDTO);
+//                    registrationOnEventDTO.setRegistrationAttribute(registrationDTO.getUser());
+//                    registrationOnEventDTO.setEventAttribute(meetupDTO.getId());
+//
+//                    return registrationOnEventDTO;
+//
+//                }).collect(Collectors.toList());
 
-                    registrationOnEventDTO.setRegistration(registrationDTO);
-                    registrationOnEventDTO.setMeetup(meetupDTO);
-                    registrationOnEventDTO.setRegistrationAttribute(registrationDTO.getRegistration());
-                    registrationOnEventDTO.setEventAttribute(meetupDTO.getId());
 
-                    return registrationOnEventDTO;
 
-                }).collect(Collectors.toList());
-        return new PageImpl<RegistrationOnEventDTO>(events, pageRequest, result.getTotalElements());
     }
 
-    @GetMapping("{eventAttribute}")
-    public Page<RegistrationOnEventDTO> findByEventId( @PathVariable Integer eventAttribute,
-                                                     MeetupFilterDTO dto, Pageable pageRequest) {
-        Page<RegistrationOnEvent> result = registrationOnEventService.findByEventId(eventAttribute, pageRequest);
-        List<RegistrationOnEventDTO> events = result
-                .getContent()
-                .stream()
-                .map(entity -> {
-
-                    Registration registration = entity.getRegistration();
-                    RegistrationDTO registrationDTO = modelMapper.map(registration, RegistrationDTO.class);
-
-                    RegistrationOnEventDTO registrationOnEventDTO = modelMapper.map(entity, RegistrationOnEventDTO.class);
-
-                    registrationOnEventDTO.setRegistration(registrationDTO);
-                    registrationOnEventDTO.setRegistrationAttribute(registrationDTO.getRegistration());
-
-                    return registrationOnEventDTO;
-
-                }).collect(Collectors.toList());
-        return new PageImpl<RegistrationOnEventDTO>(events, pageRequest, result.getTotalElements());
-    }
 
 }

@@ -53,10 +53,11 @@ public class RegistrationOnEventServiceImpl implements RegistrationOnEventServic
     public List<RegistrationOnEvent> findAll() {
         return repository.findAll();
     }
-    @Override
-    public Page<RegistrationOnEvent> findByEventId(Integer eventAttribute, Pageable pageable){
-          return repository.findByEventId(eventAttribute, pageable);
-    }
+
+//    @Override
+//    public Page<RegistrationOnEvent> findByEventId(Integer eventAttribute, Pageable pageable){
+//          return repository.findByEventId(eventAttribute, pageable);
+//    }
 
 
 }

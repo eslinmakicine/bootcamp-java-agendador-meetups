@@ -1,8 +1,6 @@
 package com.bootcamp.microservicemeetup.service;
 
         import com.bootcamp.microservicemeetup.controller.dto.MeetupFilterDTO;
-        import com.bootcamp.microservicemeetup.model.entity.Meetup;
-        import com.bootcamp.microservicemeetup.model.entity.Registration;
         import com.bootcamp.microservicemeetup.model.entity.RegistrationOnEvent;
         import org.springframework.data.domain.Page;
         import org.springframework.data.domain.Pageable;
@@ -20,7 +18,7 @@ public interface RegistrationOnEventService {
 */
     Page<RegistrationOnEvent> find(MeetupFilterDTO filterDTO, Pageable pageable);
 
-    Page<RegistrationOnEvent> findByEventId(Integer eventAttribute, Pageable pageable);
+   // Page<RegistrationOnEvent> findByEventId(Integer eventAttribute, Pageable pageable);
 
     List<RegistrationOnEvent> findAll();
 

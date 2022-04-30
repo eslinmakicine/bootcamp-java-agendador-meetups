@@ -19,9 +19,9 @@ public interface RegistrationOnEventRepository extends JpaRepository<Registratio
             @Param("event") String event,
             Pageable pageable
     ); */
-
-        @Query( value = " SELECT r.id, r.dateRegistry, m.event FROM RegistrationOnEvent r INNER JOIN meetup m ON r.eventAttribute =:eventAttribute ")
-        Page<RegistrationOnEvent> findByEventId(@Param("eventAttribute") Integer eventAttribute,
-                                                Pageable pageable);
+//
+//        @Query( value = " SELECT r.id, r.dateRegistry, m.event FROM RegistrationOnEvent r INNER JOIN meetup m ON r.eventAttribute =:eventAttribute ")
+//        Page<RegistrationOnEvent> findByEventId(@Param("eventAttribute") Integer eventAttribute,
+//                                                Pageable pageable);
 
 }

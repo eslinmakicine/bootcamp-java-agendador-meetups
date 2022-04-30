@@ -1,5 +1,6 @@
 package com.bootcamp.microservicemeetup.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,6 +17,7 @@ import java.util.List;
 public class Meetup {
 
     @Id
+    @Column(name = "id_meetup")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
@@ -35,6 +37,7 @@ public class Meetup {
     @Column
     private String meetupDate;
 
-    @OneToMany(mappedBy = "registration")
-    private List<RegistrationOnEvent> registrationsEvents;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Registration> registration;
+
 }
