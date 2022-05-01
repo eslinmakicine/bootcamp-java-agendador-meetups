@@ -11,6 +11,6 @@ package com.bootcamp.microservicemeetup.repository;
 
         import java.util.List;
 
-public interface RegistrationOnEventRepository extends JpaRepository<RegistrationOnEvent, Integer> {
+public interface RegistrationOnEventRepository  {
 
 }

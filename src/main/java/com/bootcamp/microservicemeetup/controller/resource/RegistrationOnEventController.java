@@ -1,8 +1,6 @@
 package com.bootcamp.microservicemeetup.controller.resource;
 
-import com.bootcamp.microservicemeetup.controller.dto.MeetupDTO;
-import com.bootcamp.microservicemeetup.controller.dto.MeetupFilterDTO;
-import com.bootcamp.microservicemeetup.controller.dto.RegistrationDTO;
+import com.bootcamp.microservicemeetup.controller.dto.*;
 import com.bootcamp.microservicemeetup.controller.dto.RegistrationOnEventDTO;
 import com.bootcamp.microservicemeetup.model.entity.Meetup;
 import com.bootcamp.microservicemeetup.model.entity.Registration;
@@ -36,7 +34,7 @@ public class RegistrationOnEventController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    private ResponseEntity<Void> create(@RequestBody RegistrationOnEventDTO registrationOnEventDTO) {
+    public ResponseRegistrationOnEventDTO create(@RequestBody RegistrationOnEventDTO registrationOnEventDTO) {
 
         Registration registration = registrationService
                 .getRegistrationByRegistrationAttribute(registrationOnEventDTO.getRegistrationAttribute())
@@ -49,16 +47,38 @@ public class RegistrationOnEventController {
         meetup.getRegistration().add(registration);
         meetupService.save(meetup);
 
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        ResponseRegistrationOnEventDTO entityDTO = ResponseRegistrationOnEventDTO.builder()
+                .dateRegistry(registrationOnEventDTO.getDateRegistry()) //alterar dps para localDate
+                .registrationAttribute(registrationOnEventDTO.getRegistrationAttribute())
+                .eventAttribute(registrationOnEventDTO.getEventAttribute())
+                .build();
+
+        return modelMapper.map(entityDTO, ResponseRegistrationOnEventDTO.class);
     }
 
     @GetMapping
-    public List<Meetup> find(MeetupFilterDTO dto, Pageable pageRequest) {
-        List<Meetup> result = meetupService.findAll();
+    public Page<ResponseMeetupDTO> find(MeetupFilterDTO dto, Pageable pageRequest) {
+        Page<Meetup> result = meetupService.find(dto, pageRequest);
 
-        return result;
+        List<ResponseMeetupDTO> meetups = result
+                .getContent()
+                .stream()
+                .map(entity -> {
+                    List<Registration> registrations = entity.getRegistration();
+
+                    List<RegistrationDTO> registrationDTOS = registrations.stream()
+                            .map(registration -> modelMapper.map(registration, RegistrationDTO.class))
+                            .collect(Collectors.toList());
+
+                    ResponseMeetupDTO responseMeetupDTO = modelMapper.map(entity, ResponseMeetupDTO.class);
+                    responseMeetupDTO.setRegistrations(registrationDTOS);
+
+                    return responseMeetupDTO;
+                }).collect(Collectors.toList());
+
+        return new PageImpl<ResponseMeetupDTO>(meetups, pageRequest, result.getTotalElements());
+
 
     }
-
 
 }

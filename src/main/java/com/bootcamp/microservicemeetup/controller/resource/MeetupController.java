@@ -26,7 +26,7 @@ public class MeetupController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    private MeetupDTO create(@RequestBody MeetupDTO meetupDTO) {
+    public MeetupDTO create(@RequestBody MeetupDTO meetupDTO) {
 
         Meetup entity = Meetup.builder()
                 .event(meetupDTO.getEvent())

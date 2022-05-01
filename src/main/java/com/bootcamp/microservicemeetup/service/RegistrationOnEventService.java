@@ -9,15 +9,15 @@ package com.bootcamp.microservicemeetup.service;
         import java.util.Optional;
 
 public interface RegistrationOnEventService {
+    /*
+        RegistrationOnEvent save(RegistrationOnEvent registrationOnEvent);
 
-    RegistrationOnEvent save(RegistrationOnEvent registrationOnEvent);
-/*
-    Optional<RegistrationOnEvent> getById(Integer id);
+        Optional<RegistrationOnEvent> getById(Integer id);
 
-    RegistrationOnEvent update(RegistrationOnEvent registrationOnEvent);
-*/
+        RegistrationOnEvent update(RegistrationOnEvent registrationOnEvent);
+
     Page<RegistrationOnEvent> find(MeetupFilterDTO filterDTO, Pageable pageable);
 
     List<RegistrationOnEvent> findAll();
-
+*/
 }
