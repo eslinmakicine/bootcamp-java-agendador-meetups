@@ -1,7 +1,6 @@
 package com.bootcamp.microservicemeetup.controller.resource;
 
 import com.bootcamp.microservicemeetup.controller.dto.MeetupDTO;
-import com.bootcamp.microservicemeetup.controller.dto.MeetupFilterDTO;
 import com.bootcamp.microservicemeetup.model.entity.Meetup;
 import com.bootcamp.microservicemeetup.service.MeetupService;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +10,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,7 +35,7 @@ public class MeetupController {
     }
 
     @GetMapping
-    public Page<MeetupDTO> find(MeetupFilterDTO dto, Pageable pageRequest) {
+    public Page<MeetupDTO> find(Meetup dto, Pageable pageRequest) {
         Page<Meetup> result = meetupService.find(dto, pageRequest);
         List<MeetupDTO> meetups = result
                 .getContent()

@@ -38,17 +38,16 @@ public class RegistrationOnEventController {
 
         Registration registration = registrationService
                 .getRegistrationByRegistrationAttribute(registrationOnEventDTO.getRegistrationAttribute())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "You must enter a valid registration"));
 
         Meetup meetup = meetupService
                 .getById(registrationOnEventDTO.getEventAttribute())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "You must enter a valid event"));
         registration.setMeetup(meetup);
         meetup.getRegistration().add(registration);
         meetupService.save(meetup);
 
         ResponseRegistrationOnEventDTO entityDTO = ResponseRegistrationOnEventDTO.builder()
-                .dateRegistry(registrationOnEventDTO.getDateRegistry()) //alterar dps para localDate
                 .registrationAttribute(registrationOnEventDTO.getRegistrationAttribute())
                 .eventAttribute(registrationOnEventDTO.getEventAttribute())
                 .build();
@@ -57,8 +56,8 @@ public class RegistrationOnEventController {
     }
 
     @GetMapping
-    public Page<ResponseMeetupDTO> find(MeetupFilterDTO dto, Pageable pageRequest) {
-        Page<Meetup> result = meetupService.find(dto, pageRequest);
+    public Page<ResponseMeetupDTO> find(Meetup dto, Pageable pageRequest) {
+        Page<Meetup> result = meetupService.find(dto, pageRequest); //
 
         List<ResponseMeetupDTO> meetups = result
                 .getContent()

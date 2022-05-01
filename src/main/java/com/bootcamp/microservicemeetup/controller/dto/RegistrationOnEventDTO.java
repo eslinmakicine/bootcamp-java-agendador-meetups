@@ -13,8 +13,6 @@ public class RegistrationOnEventDTO {
 
     private Integer id;
 
-    private String dateRegistry; //
-
     private String registrationAttribute;
 
     private Integer eventAttribute;

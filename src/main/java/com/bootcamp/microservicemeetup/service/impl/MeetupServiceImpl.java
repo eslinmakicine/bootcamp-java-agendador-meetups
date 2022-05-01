@@ -1,10 +1,10 @@
 package com.bootcamp.microservicemeetup.service.impl;
 
-import com.bootcamp.microservicemeetup.controller.dto.MeetupFilterDTO;
 import com.bootcamp.microservicemeetup.model.entity.Meetup;
-import com.bootcamp.microservicemeetup.model.entity.Registration;
 import com.bootcamp.microservicemeetup.repository.MeetupRepository;
 import com.bootcamp.microservicemeetup.service.MeetupService;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -37,12 +37,16 @@ public class MeetupServiceImpl implements MeetupService {
     }
 
     @Override
-    public Page<Meetup> find(MeetupFilterDTO filterDTO, Pageable pageable) {
-        /* if (// filterDTO.getRegistration() == null &&
-                filterDTO.getEvent() == null )  {
-            return repository.findAll(pageable);
-        } */
-        return repository.findAll(pageable);
+    public Page<Meetup> find(Meetup filter, Pageable pageable) {
+        Example<Meetup> example = Example.of(filter,
+                ExampleMatcher
+                        .matching()
+                        .withIgnoreCase()
+                        .withIgnoreNullValues()
+                        .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING));
+
+        return repository.findAll(example, pageable);
+
     }
 
     public List<Meetup> findAll() {

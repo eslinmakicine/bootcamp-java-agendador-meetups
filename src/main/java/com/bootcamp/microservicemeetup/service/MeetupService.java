@@ -1,8 +1,6 @@
 package com.bootcamp.microservicemeetup.service;
 
-import com.bootcamp.microservicemeetup.controller.dto.MeetupFilterDTO;
 import com.bootcamp.microservicemeetup.model.entity.Meetup;
-import com.bootcamp.microservicemeetup.model.entity.Registration;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -17,7 +15,7 @@ public interface MeetupService {
 
     Meetup update(Meetup meetup);
 
-    Page<Meetup> find(MeetupFilterDTO filterDTO, Pageable pageable);
+    Page<Meetup> find(Meetup filter, Pageable pageable);
 
     List<Meetup> findAll();
 

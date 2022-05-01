@@ -11,10 +11,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ResponseRegistrationOnEventDTO {
 
-   // private Integer id;
-
-    private String dateRegistry; //
-
     private String registrationAttribute;
 
     private Integer eventAttribute;
