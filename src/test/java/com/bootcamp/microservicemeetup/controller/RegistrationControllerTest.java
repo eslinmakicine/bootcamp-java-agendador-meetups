@@ -229,16 +229,16 @@ public class RegistrationControllerTest {
 
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
                 .put(REGISTRATION_API.concat("/" + 1))
-                .contentType(json)
+                .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON);
-
+                .content(json);
         mockMvc.perform(requestBuilder)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("id").value(id))
                 .andExpect(jsonPath("name").value(createNewRegistration().getName()))
                 .andExpect(jsonPath("dateOfRegistration").value(createNewRegistration().getDateOfRegistration()))
                 .andExpect(jsonPath("registration").value("323"));
+
     }
 
     @Test
@@ -251,9 +251,9 @@ public class RegistrationControllerTest {
 
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
                 .put(REGISTRATION_API.concat("/" + 1))
-                .contentType(json)
+                .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON);
+                .content(json);
 
         mockMvc.perform(requestBuilder)
                 .andExpect(status().isNotFound());

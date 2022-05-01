@@ -26,14 +26,14 @@ public class MeetupController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    private Integer create(@RequestBody MeetupDTO meetupDTO) {
+    private MeetupDTO create(@RequestBody MeetupDTO meetupDTO) {
 
         Meetup entity = Meetup.builder()
                 .event(meetupDTO.getEvent())
                 .meetupDate(meetupDTO.getMeetupDate())
                 .build();
         entity = meetupService.save(entity);
-        return entity.getId();
+        return modelMapper.map(entity, MeetupDTO.class);
     }
 
     @GetMapping
