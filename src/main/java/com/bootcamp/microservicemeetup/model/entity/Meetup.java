@@ -27,6 +27,9 @@ public class Meetup {
     @Column
     private String meetupDate;
 
+    @Column
+    private Boolean registered;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Registration> registration;
 
