@@ -11,8 +11,6 @@ public interface MeetupService {
 
     Meetup save(Meetup meetup);
 
-    Optional<Meetup> getById(Integer id);
-
     Meetup update(Meetup meetup);
 
     Page<Meetup> find(Meetup filter, Pageable pageable);
@@ -20,4 +18,6 @@ public interface MeetupService {
     List<Meetup> findAll();
 
     void delete(Integer id);
+
+    Optional<Meetup> findMeetupById(Integer id);
 }

@@ -30,7 +30,7 @@ public class RegistrationController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public RegistrationDTO create(@RequestBody @Valid RegistrationDTO dto) {
+    public RegistrationDTO createRegistration(@RequestBody @Valid RegistrationDTO dto) {
 
         Registration entity = modelMapper.map(dto, Registration.class);
         entity = registrationService.save(entity);
@@ -40,7 +40,7 @@ public class RegistrationController {
 
     @GetMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
-    public RegistrationDTO get (@PathVariable Integer id) {
+    public RegistrationDTO getRegistrationById(@PathVariable Integer id) {
 
         return registrationService
                 .getRegistrationById(id)
@@ -50,14 +50,14 @@ public class RegistrationController {
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteByRegistrationId(@PathVariable Integer id) {
+    public void deleteByRegistrationById(@PathVariable Integer id) {
         Registration registration = registrationService.getRegistrationById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         registrationService.delete(registration);
     }
 
     @PutMapping("{id}")
-    public RegistrationDTO update(@PathVariable Integer id,
+    public RegistrationDTO updateRegistrationById(@PathVariable Integer id,
                                   @RequestBody @Valid RegistrationDTO registrationDTO) {
 
         return registrationService.getRegistrationById(id).map(registration -> {
@@ -69,7 +69,7 @@ public class RegistrationController {
     }
 
     @GetMapping
-    public Page<RegistrationDTO> find(RegistrationDTO dto, Pageable pageRequest) {
+    public Page<RegistrationDTO> findAllRegistrations(RegistrationDTO dto, Pageable pageRequest) {
         Registration filter = modelMapper.map(dto, Registration.class);
         Page<Registration> result = registrationService.find(filter, pageRequest);
 

@@ -41,7 +41,7 @@ public class RegistrationOnEventController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "You must enter a valid registration"));
 
         Meetup meetup = meetupService
-                .getById(registrationOnEventDTO.getEventAttribute())
+                .findMeetupById(registrationOnEventDTO.getEventAttribute())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "You must enter a valid meetup"));
         registration.setMeetup(meetup);
         meetup.getRegistration().add(registration);

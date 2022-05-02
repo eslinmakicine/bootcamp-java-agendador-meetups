@@ -28,11 +28,6 @@ public class MeetupServiceImpl implements MeetupService {
     }
 
     @Override
-    public Optional<Meetup> getById(Integer id) {
-        return repository.findById(id);
-    }
-
-    @Override
     public Meetup update(Meetup meetup) {
         return repository.save(meetup);
     }
@@ -57,6 +52,15 @@ public class MeetupServiceImpl implements MeetupService {
     @Override
     public void delete(Integer id) {
         this.repository.deleteById(id);
+    }
+
+    @Override
+    public Optional<Meetup> findMeetupById(Integer id) {
+        Optional<Meetup> result = repository.findById(id);
+        if (!(result.isPresent())) {
+            throw new BusinessException("You must inform a valid meetup id");
+        }
+        return result;
     }
 
 }
