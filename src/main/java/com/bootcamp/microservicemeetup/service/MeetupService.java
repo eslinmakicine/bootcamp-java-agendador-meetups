@@ -19,4 +19,5 @@ public interface MeetupService {
 
     List<Meetup> findAll();
 
+    void delete(Integer id);
 }

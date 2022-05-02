@@ -1,5 +1,6 @@
 package com.bootcamp.microservicemeetup.service.impl;
 
+import com.bootcamp.microservicemeetup.exception.BusinessException;
 import com.bootcamp.microservicemeetup.model.entity.Meetup;
 import com.bootcamp.microservicemeetup.repository.MeetupRepository;
 import com.bootcamp.microservicemeetup.service.MeetupService;
@@ -51,6 +52,11 @@ public class MeetupServiceImpl implements MeetupService {
 
     public List<Meetup> findAll() {
         return repository.findAll();
+    }
+
+    @Override
+    public void delete(Integer id) {
+        this.repository.deleteById(id);
     }
 
 }
