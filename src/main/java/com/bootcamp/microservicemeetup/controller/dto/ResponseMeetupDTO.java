@@ -1,6 +1,6 @@
 package com.bootcamp.microservicemeetup.controller.dto;
 
-import com.bootcamp.microservicemeetup.model.entity.Registration;
+import com.bootcamp.microservicemeetup.model.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,13 +14,13 @@ import java.util.List;
 @AllArgsConstructor
 public class ResponseMeetupDTO {
 
-    private Integer id;
+    private Integer idMeetup;
 
-    private String event;
+    private String nameMeetup;
 
     private String meetupDate;
 
-    private List<RegistrationDTO> registrations;
+    private List<UserDTO> registrations;
 
 
 }

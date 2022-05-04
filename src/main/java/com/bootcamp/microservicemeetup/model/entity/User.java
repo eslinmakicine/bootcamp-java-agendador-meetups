@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
 
 //as anotações abaixo servem para não ser necessário criar get, set, construtores com a ajuda de lombok...
 @Data
@@ -14,21 +13,21 @@ import java.util.List;
 @Entity
 @Table
 @ToString(exclude = "meetup")
-public class Registration {
+public class User {
 
     @Id
-    @Column(name = "registration_id")
+    @Column(name = "id_user")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer idUser;
 
-    @Column(name = "person_name")
-    private String name;
+    @Column(name = "name_user")
+    private String nameUser;
 
-    @Column(name = "date_of_registration")
-    private String dateOfRegistration;
+    @Column(name = "date_registry_user")
+    private String dateRegistryUser;
 
     @Column
-    private String registration;
+    private String userAttribute;
 
     @JsonIgnore
     @JoinColumn(name = "id_meetup")

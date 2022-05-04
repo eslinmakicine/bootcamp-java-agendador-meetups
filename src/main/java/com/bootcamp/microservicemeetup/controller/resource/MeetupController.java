@@ -27,8 +27,8 @@ public class MeetupController {
     public MeetupDTO createMeetup(@RequestBody MeetupDTO meetupDTO) {
 
         Meetup entity = Meetup.builder()
-                .event(meetupDTO.getEvent())
-                .meetupDate(meetupDTO.getMeetupDate())
+                .nameMeetup(meetupDTO.getNameMeetup())
+                .dateMeetup(meetupDTO.getDateMeetup())
                 .build();
         entity = meetupService.save(entity);
         return modelMapper.map(entity, MeetupDTO.class);
@@ -70,8 +70,8 @@ public class MeetupController {
                                  @RequestBody  MeetupDTO meetupDTO) {
 
         return meetupService.findMeetupById(id).map(meetup -> {
-            meetup.setEvent(meetupDTO.getEvent());
-            meetup.setMeetupDate(meetupDTO.getMeetupDate());
+            meetup.setNameMeetup(meetupDTO.getNameMeetup());
+            meetup.setDateMeetup(meetupDTO.getDateMeetup());
             meetup = meetupService.update(meetup);
             return modelMapper.map(meetup, MeetupDTO.class);
         }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));

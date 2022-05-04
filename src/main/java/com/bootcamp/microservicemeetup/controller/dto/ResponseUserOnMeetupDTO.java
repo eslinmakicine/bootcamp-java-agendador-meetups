@@ -9,16 +9,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RegistrationOnEventDTO {
+public class ResponseUserOnMeetupDTO {
 
-    private Integer id;
+    private String userAttribute;
 
-    private String registrationAttribute;
-
-    private Integer eventAttribute;
-
-    private RegistrationDTO registration;
-
-    private MeetupDTO meetup;
+    private Integer meetupAttribute;
 
 }

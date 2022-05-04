@@ -1,23 +1,8 @@
 package com.bootcamp.microservicemeetup.controller;
 
-import com.bootcamp.microservicemeetup.controller.dto.MeetupDTO;
-import com.bootcamp.microservicemeetup.model.entity.Meetup;
-import com.bootcamp.microservicemeetup.model.entity.Registration;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.mockito.BDDMockito;
-import org.mockito.Mockito;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
+import com.bootcamp.microservicemeetup.model.entity.User;
 
-import java.util.Optional;
-
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-public class RegistrationOnEventController {
+public class UserOnMeetupController {
 
 //
 //    @Test
@@ -48,7 +33,7 @@ public class RegistrationOnEventController {
 //
 //    }
 
-//    ////incluir teste para a classe RegistrationOnEvent
+//    ////incluir teste para a classe UserOnMeetup
 //    @Test
 //    @DisplayName("Should return error when try to register an a meetup nonexistent")
 //    public void invalidRegistrationCreateMeetupTest() throws Exception {
@@ -70,7 +55,7 @@ public class RegistrationOnEventController {
 //    }
 
 
-////incluir teste para a classe RegistrationOnEvent
+////incluir teste para a classe UserOnMeetup
 //    @Test
 //    @DisplayName("Should return error when try to register a registration already register on a meetup")
 //    public void  meetupRegistrationErrorOnCreateMeetupTest() throws Exception {

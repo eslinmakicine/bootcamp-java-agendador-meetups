@@ -1,5 +1,6 @@
 package com.bootcamp.microservicemeetup.controller.dto;
 
+import com.bootcamp.microservicemeetup.model.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,16 +12,18 @@ import javax.validation.constraints.NotEmpty;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class RegistrationDTO {
+public class UserDTO {
 
-    private Integer id;
-
-    @NotEmpty
-    private String name;
+    private Integer idUser;
 
     @NotEmpty
-    private String dateOfRegistration;
+    private String nameUser;
 
     @NotEmpty
-    private String registration;
+    private String dateRegistryUser;
+
+    @NotEmpty
+    private String userAttribute;
+
+
 }

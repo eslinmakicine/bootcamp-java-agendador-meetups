@@ -5,9 +5,9 @@ import com.bootcamp.microservicemeetup.controller.resource.MeetupController;
 import com.bootcamp.microservicemeetup.exception.BusinessException;
 import com.bootcamp.microservicemeetup.controller.dto.MeetupDTO;
 import com.bootcamp.microservicemeetup.model.entity.Meetup;
-import com.bootcamp.microservicemeetup.model.entity.Registration;
+import com.bootcamp.microservicemeetup.model.entity.User;
 import com.bootcamp.microservicemeetup.service.MeetupService;
-import com.bootcamp.microservicemeetup.service.RegistrationService;
+import com.bootcamp.microservicemeetup.service.UserService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -41,7 +41,7 @@ public class MeetupControllerTest {
     MockMvc mockMvc;
 
     @MockBean
-    private RegistrationService registrationService;
+    private UserService userService;
 
     @MockBean
     private MeetupService meetupService;
@@ -50,10 +50,10 @@ public class MeetupControllerTest {
     @DisplayName("Should register on a meetup")
     public void createMeetupTest() throws Exception {
 
-        MeetupDTO dto = MeetupDTO.builder().event("Womakerscode Dados").meetupDate("10/10/2021").build();
+        MeetupDTO dto = MeetupDTO.builder().nameMeetup("Womakerscode Dados").dateMeetup("10/10/2021").build();
         String json = new ObjectMapper().writeValueAsString(dto);
 
-        Meetup meetup = Meetup.builder().id(11).event("Womakerscode Dados").meetupDate("10/10/2021").build();
+        Meetup meetup = Meetup.builder().idMeetup(11).nameMeetup("Womakerscode Dados").dateMeetup("10/10/2021").build();
 
         BDDMockito.given(meetupService.save(Mockito.any(Meetup.class))).willReturn(meetup);
 
