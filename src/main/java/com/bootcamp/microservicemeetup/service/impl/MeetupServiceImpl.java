@@ -10,7 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -43,10 +42,6 @@ public class MeetupServiceImpl implements MeetupService {
 
         return repository.findAll(example, pageable);
 
-    }
-
-    public List<Meetup> findAll() {
-        return repository.findAll();
     }
 
     @Override

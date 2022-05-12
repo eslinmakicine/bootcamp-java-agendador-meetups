@@ -5,7 +5,6 @@ import com.bootcamp.microservicemeetup.controller.dto.UserOnMeetupDTO;
 import com.bootcamp.microservicemeetup.model.entity.Meetup;
 import com.bootcamp.microservicemeetup.model.entity.User;
 import com.bootcamp.microservicemeetup.service.MeetupService;
-import com.bootcamp.microservicemeetup.service.UserOnMeetupService;
 import com.bootcamp.microservicemeetup.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -26,8 +25,6 @@ public class UserOnMeetupController {
 
     private final MeetupService meetupService;
     private final UserService userService;
-    private final UserOnMeetupService userOnMeetup;
-
     private final ModelMapper modelMapper;
 
     @PostMapping

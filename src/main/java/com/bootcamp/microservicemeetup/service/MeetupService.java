@@ -15,8 +15,6 @@ public interface MeetupService {
 
     Page<Meetup> find(Meetup filter, Pageable pageable);
 
-    List<Meetup> findAll();
-
     void delete(Integer id);
 
     Optional<Meetup> findMeetupById(Integer id);

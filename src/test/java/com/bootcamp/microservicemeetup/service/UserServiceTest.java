@@ -4,7 +4,6 @@ import com.bootcamp.microservicemeetup.exception.BusinessException;
 import com.bootcamp.microservicemeetup.model.entity.User;
 import com.bootcamp.microservicemeetup.repository.UserRepository;
 import com.bootcamp.microservicemeetup.service.impl.UserServiceImpl;
-
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -18,7 +17,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -35,9 +33,7 @@ public class UserServiceTest {
     @MockBean
     UserRepository repository;
 
-
     @BeforeEach
-    //dependencia de service e new da mesma
     public void setUp() {
         this.userService = new UserServiceImpl(repository);
     }
@@ -46,21 +42,17 @@ public class UserServiceTest {
     @DisplayName("Should save an user")
     public void saveUser() {
 
-        // cenario
         User user = createValidUser();
 
-        // excucao
         Mockito.when(repository.existsByUserAttribute(Mockito.anyString())).thenReturn(false);
         Mockito.when(repository.save(user)).thenReturn(createValidUser());
 
         User savedUser = userService.saveUser(user);
 
-        // assert
         assertThat(savedUser.getIdUser()).isEqualTo(101);
-        assertThat(savedUser.getNameUser()).isEqualTo("Ana Neri");
+        assertThat(savedUser.getNameUser()).isEqualTo("Éslin Makicine");
         assertThat(savedUser.getDateRegistryUser()).isEqualTo("01/04/2022");
         assertThat(savedUser.getUserAttribute()).isEqualTo("001");
-
     }
 
     @Test
@@ -73,24 +65,21 @@ public class UserServiceTest {
 
         Throwable exception = Assertions.catchThrowable( () -> userService.saveUser(user));
         assertThat(exception)
-                .isInstanceOf(BusinessException.class)//garantir que é uma exceção de uma instância denominada BusinessException
+                .isInstanceOf(BusinessException.class)
                 .hasMessage("User already created");
 
-        Mockito.verify(repository, Mockito.never()).save(user); //vai validar que dentro desse repository ele nunca vai salvar um registro que já esteja criado
+        Mockito.verify(repository, Mockito.never()).save(user);
     }
 
     @Test
     @DisplayName("Should get an User by Id")
     public void getByUserIdTest() {
 
-        // cenario
         Integer idUser = 11;
         User user = createValidUser();
         user.setIdUser(idUser);
         Mockito.when(repository.findById(idUser)).thenReturn(Optional.of(user));
 
-
-        // execucao
         Optional<User> foundUser = userService.findUserById(idUser);
 
         assertThat(foundUser.isPresent()).isTrue();
@@ -98,7 +87,6 @@ public class UserServiceTest {
         assertThat(foundUser.get().getNameUser()).isEqualTo(user.getNameUser());
         assertThat(foundUser.get().getDateRegistryUser()).isEqualTo(user.getDateRegistryUser());
         assertThat(foundUser.get().getUserAttribute()).isEqualTo(user.getUserAttribute());
-
     }
 
     @Test
@@ -120,7 +108,7 @@ public class UserServiceTest {
         User user = User.builder().idUser(11).build();
 
         assertDoesNotThrow(() -> userService.deleteUser(user));
-//Mockito.times diz quantas vezes deseja invocar esse metodo
+
         Mockito.verify(repository, Mockito.times(1)).delete(user);
     }
 
@@ -128,19 +116,15 @@ public class UserServiceTest {
     @DisplayName("Should update an user")
     public void updateUser() {
 
-        // cenario
         Integer idUser = 11;
         User updatingUser = User.builder().idUser(11).build();
 
-
-        // execucao
         User updatedUser = createValidUser();
         updatedUser.setIdUser(idUser);
 
         Mockito.when(repository.save(updatingUser)).thenReturn(updatedUser);
         User user = userService.updateUser(updatingUser);
 
-        // assert
         assertThat(user.getIdUser()).isEqualTo(updatedUser.getIdUser());
         assertThat(user.getNameUser()).isEqualTo(updatedUser.getNameUser());
         assertThat(user.getDateRegistryUser()).isEqualTo(updatedUser.getDateRegistryUser());
@@ -148,25 +132,22 @@ public class UserServiceTest {
 
     }
 
-    @Test //NAO ENTENDI
+    @Test
     @DisplayName("Should filter users must by properties")
     public void findUserTest() {
 
-        // cenario
         User user = createValidUser();
-        PageRequest pageRequest = PageRequest.of(0,10); //minimo e maximo de paginas que quero trazer
+        PageRequest pageRequest = PageRequest.of(0,10);
 
         List<User> listUsers = Arrays.asList(user);
         Page<User> page = new PageImpl<User>(Arrays.asList(user),
                 PageRequest.of(0,10), 1);
 
-        // execucao
         Mockito.when(repository.findAll(Mockito.any(Example.class), Mockito.any(PageRequest.class)))
                 .thenReturn(page);
 
         Page<User> result = userService.findAllUsers(user, pageRequest);
 
-        // assercao
         assertThat(result.getTotalElements()).isEqualTo(1);
         assertThat(result.getContent()).isEqualTo(listUsers);
         assertThat(result.getPageable().getPageNumber()).isEqualTo(0);
@@ -194,9 +175,9 @@ public class UserServiceTest {
 
 
     private User createValidUser() {
-        return User.builder() // com o builder é mockado os objetos que necessita
+        return User.builder()
                 .idUser(101)
-                .nameUser("Ana Neri")
+                .nameUser("Éslin Makicine")
                 .dateRegistryUser("01/04/2022")
                 .userAttribute("001")
                 .build();

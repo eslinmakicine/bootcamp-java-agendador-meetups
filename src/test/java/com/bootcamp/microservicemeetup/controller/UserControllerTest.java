@@ -53,26 +53,22 @@ public class UserControllerTest {
     @DisplayName("Should create a user with success")
     public void createUserTest() throws Exception {
 
-        // cenario
         UserDTO userDTOBuilder = createNewUser();
         User savedUser = User.builder().idUser(101)
                 .nameUser("Ana Neri").dateRegistryUser("10/10/2021").userAttribute("001").build();
 
-
-        // execucao
         BDDMockito.given(userService.saveUser(any(User.class))).willReturn(savedUser);
 
 
-        String json  = new ObjectMapper().writeValueAsString(userDTOBuilder); //mapeia o objeto em json
+        String json  = new ObjectMapper().writeValueAsString(userDTOBuilder);
 
 
-        MockHttpServletRequestBuilder request = MockMvcRequestBuilders //simula request
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders //simula reques
                 .post(USER_API)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(json);
 
-        // verificacao, assert....
         mockMvc
                 .perform(request)
                 .andExpect(status().isCreated())
@@ -96,7 +92,6 @@ public class UserControllerTest {
 
         mockMvc.perform(request)
                 .andExpect(status().isBadRequest());
-
     }
 
     @Test
@@ -152,13 +147,13 @@ public class UserControllerTest {
     @DisplayName("Should return NOT FOUND when the user doesn't exists")
     public void userNotFoundTest() throws Exception {
 
-        BDDMockito.given(userService.findUserById(anyInt())).willReturn(Optional.empty()); //ao chamar getRegistrationById, espero que retorne um optional vazio
+        BDDMockito.given(userService.findUserById(anyInt())).willReturn(Optional.empty());
 
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders //mockar requisição para id inexistente
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
                 .get(USER_API.concat("/" + 1))
                 .accept(MediaType.APPLICATION_JSON);
 
-        mockMvc.perform(requestBuilder) //quero q ele performe a request acima, e espero q retorne status notFound
+        mockMvc.perform(requestBuilder)
                 .andExpect(status().isNotFound());
     }
 
@@ -273,7 +268,7 @@ public class UserControllerTest {
                 .willReturn(new PageImpl<User>(Arrays.asList(user), PageRequest.of(0,100), 1));
 
 
-        String queryString = String.format("?nameUser=%s&dateRegistryUser=%s&page=0&size=100", //passando uma query para dps concatenar na URL. A % significa o dado que vai estar vindo. O "s" significa qualquer coisa q vier dps disso q é o dado q vai passar
+        String queryString = String.format("?nameUser=%s&dateRegistryUser=%s&page=0&size=100",
                 user.getUserAttribute(), user.getDateRegistryUser());
 
 
